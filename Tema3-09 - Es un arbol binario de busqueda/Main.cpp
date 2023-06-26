@@ -16,7 +16,6 @@ bool resolver(Arbin<int>const& arbol, int min, int max) {
 void resuelveCaso() {
     Arbin<int>arbol = Arbin<int>::leerArbol(-1);
     cout << (resolver(arbol, INT_MIN, INT_MAX) ? "SI\n" : "NO\n");
-    //cout << (resolver(arbol).bb ? "SI\n" : "NO\n");
 }
 
 int main() {
