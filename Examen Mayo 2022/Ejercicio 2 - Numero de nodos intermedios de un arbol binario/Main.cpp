@@ -4,15 +4,25 @@
 #include "Arbin.h"
 using namespace std;
 
-int resolver(Arbin<int>const&arbol) {
-    return 0;
+struct tsol {
+    int nodos_intermedios;
+    int hijos;
+};
+
+tsol resolver(Arbin<int>const& arbol, int padre) {
+    if (arbol.esVacio()) return { 0,0 };
+    tsol i = resolver(arbol.hijoIz(), arbol.raiz());
+    tsol d = resolver(arbol.hijoDr(), arbol.raiz());
+    int hijos = i.hijos + d.hijos + arbol.raiz(), nodos_intermedios = i.nodos_intermedios + d.nodos_intermedios;
+    if (padre != 0 && arbol.raiz() == (std::abs(i.hijos - d.hijos) % padre)) nodos_intermedios++;
+    return { nodos_intermedios, hijos};
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
 void resuelveCaso() {
     Arbin<int>arbol = Arbin<int>::leerArbolInorden();
-    cout << resolver(arbol) << "\n";
+    cout << resolver(arbol, 0).nodos_intermedios << "\n";
 }
 
 int main() {
